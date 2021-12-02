@@ -8,22 +8,13 @@ import java.util.stream.Stream;
 
 public class Day1SonarSweep {
 
-    private List<Integer> data = null;
+    private static final String fileName = "day1-sonar-sweep";
 
-    private void readData() {
-        Stream<String> stream = null;
-        try {
-            stream = Files.lines(Paths.get(Objects.requireNonNull(this.getClass().getResource("day1-sonar-sweep")).toURI()));
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
-        }
-        assert stream != null;
-        this.data = stream.map(line -> Integer.parseInt(line.trim())).toList();
-    }
+    private List<Integer> data = null;
 
     public int calc() {
         if (this.data == null) {
-            this.readData();
+            readData();
         }
 
         int counter = 0;
@@ -38,7 +29,7 @@ public class Day1SonarSweep {
 
     public int calc2() {
         if (this.data == null) {
-            this.readData();
+            readData();
         }
 
         int counter = 0;
@@ -49,5 +40,18 @@ public class Day1SonarSweep {
         }
 
         return counter;
+    }
+
+    private void readData() {
+        Stream<String> stream = null;
+
+        try {
+            stream = Files.lines(Paths.get(Objects.requireNonNull(this.getClass().getResource(Day1SonarSweep.fileName)).toURI()));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+        assert stream != null;
+
+        this.data = stream.map(line -> Integer.parseInt(line.trim())).toList();
     }
 }
