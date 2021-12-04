@@ -1,3 +1,5 @@
+package nnworkspace.adventcode2021;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -8,7 +10,7 @@ import java.util.stream.Stream;
 
 public class Day1SonarSweep {
 
-    private static final String fileName = "day1-sonar-sweep";
+    private static final String fileName = "/day1-sonar-sweep";
 
     private List<Integer> data = null;
 

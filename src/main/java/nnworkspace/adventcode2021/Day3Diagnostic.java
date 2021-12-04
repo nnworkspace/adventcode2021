@@ -1,3 +1,5 @@
+package nnworkspace.adventcode2021;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -6,7 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Day3Diagnostic {
-    private static final String fileName = "day3-binary-diagnostic";
+    private static final String fileName = "/day3-binary-diagnostic";
 
     private List<String> data = null;
 
