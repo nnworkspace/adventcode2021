@@ -17,7 +17,7 @@ public class PuzzlesRunner {
 
         Day4Bingo day4 = new Day4Bingo(5);
         day4.readData("src/main/resources/day-4-bingo");
-        System.out.printf("Day 4 Q1: %d, Q2: %d.", day4.calc()[1], day4.calc2());
+        System.out.printf("Day 4 Q1: %d, Q2: %d.", day4.calc()[1], day4.calc2()[1]);
 
         addVSpace();
     }

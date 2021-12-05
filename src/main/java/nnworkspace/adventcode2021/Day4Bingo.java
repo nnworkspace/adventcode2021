@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +19,6 @@ public class Day4Bingo {
 
   List<Integer> randomInts = null;
   List<int[][]> boards = new ArrayList<>();
-  // List<List<Pair>> marks = new ArrayList<>();
 
   public Day4Bingo(int boardSize) {
     this.boardSize = boardSize;
@@ -51,23 +51,122 @@ public class Day4Bingo {
             bingoRandom = random;
             String msg = String.format("Random = %d, bingoScore=%d", random, bingoScore);
             logger.log(Level.INFO, msg);
-            return new int[]{bingoRandom, bingoScore};
+            return new int[] {bingoRandom, bingoScore};
           }
         }
       }
     }
 
-    return new int[]{bingoRandom, bingoScore};
+    return new int[] {bingoRandom, bingoScore};
   }
 
-  public int calc2() {
-    return 0;
+  public int[] calc2() {
+    int bingoRandom = -1;
+    int bingoScore = -1;
+
+    for (int random : randomInts) {
+
+      // mark all boards, do not skip any, otherwise error will occur.
+      for (int i = 0; i < boards.size(); i++) {
+        int[][] board = boards.get(i);
+
+        // first, mark the matching number as -1
+        markAMatch(random, board);
+      }
+
+      if (boards.size() == 1) {
+        int[][] board = boards.get(0);
+        boolean isBingo = this.checkBingo(board);
+        if (isBingo) {
+          // this is the last bingo board
+          bingoRandom = random;
+          bingoScore = calcBingoScore(board, random);
+          String msg = String.format("Random = %d, bingoScore=%d", random, bingoScore);
+          logger.log(Level.INFO, msg);
+          return new int[] {bingoRandom, bingoScore};
+        } else {
+          continue;
+        }
+      }
+
+      // safely remove bingos if there is any
+      this.removeBingos();
+    }
+
+    return new int[] {bingoRandom, bingoScore};
+  }
+
+  private void removeBingos() {
+    if (boards.size() == 1) {
+      return;
+    }
+
+    // find all indices of boards to remove, after a single round of marking:
+    List<Integer> bingoIndices = findBingoIndices();
+
+    bingoIndices.sort(Comparator.reverseOrder());
+    if (boards.size() - bingoIndices.size() == 0) {
+      // leave the last board, do not remove the board,
+      // so that the index of the last board needs to be removed
+      bingoIndices.remove(0);
+    }
+
+    bingoIndices.stream().mapToInt(i -> i).forEach(boards::remove);
+  }
+
+  private List<Integer> findBingoIndices() {
+    List<Integer> bingoIndices = new ArrayList<>();
+    for (int i = 0; i < boards.size(); i++) {
+      int[][] board = boards.get(i);
+      // then scan the whole board, if there is a row or col already has all -1
+      boolean isBingo = checkBingo(board);
+
+      if (isBingo) {
+        bingoIndices.add(i);
+      }
+    }
+    return bingoIndices;
+  }
+
+  private boolean checkBingo(int[][] board) {
+    boolean isBingo = checkBingoInRows2(board);
+    if (!isBingo) {
+      isBingo = checkBingoInCols2(board);
+    }
+
+    return isBingo;
+  }
+
+  private boolean checkBingoInRows2(int[][] board) {
+    for (int row = 0; row < boardSize; row++) {
+      int[] aRow = board[row];
+      int rowSum = Arrays.stream(aRow).reduce(0, Integer::sum);
+      if (rowSum == -1 * boardSize) {
+        // bingo
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private boolean checkBingoInCols2(int[][] board) {
+    for (int col = 0; col < boardSize; col++) {
+      int colSum = 0;
+      for (int row = 0; row < boardSize; row++) {
+        colSum += board[row][col];
+      }
+      if (colSum == -1 * boardSize) {
+        // bingo
+        return true;
+      }
+    }
+    return false;
   }
 
   private int checkAndCalcBingo(int random, int[][] board) {
     // is a whole row already marked? if yes, calc bingo score
     int bingoScore = checkBingoInRows(random, board);
-    if (bingoScore <= 0 ) {
+    if (bingoScore <= 0) {
       bingoScore = checkBingoInCols(random, board);
     }
     return bingoScore;
@@ -86,17 +185,17 @@ public class Day4Bingo {
   }
 
   private int checkBingoInCols(int random, int[][] board) {
-    for (int col = 0; col < boardSize; col++){
+    for (int col = 0; col < boardSize; col++) {
       int colSum = 0;
-      for (int row = 0; row < boardSize; row++){
+      for (int row = 0; row < boardSize; row++) {
         colSum += board[row][col];
       }
-      if ( colSum == -1 * boardSize) {
+      if (colSum == -1 * boardSize) {
         // bingo
         return calcBingoScore(board, random);
       }
     }
-    return -1 ;
+    return -1;
   }
 
   private boolean markAMatch(int random, int[][] board) {
@@ -115,10 +214,7 @@ public class Day4Bingo {
   public int calcBingoScore(int[][] board, int random) {
     int rowSum = 0;
     for (int row = 0; row < boardSize; row++) {
-      rowSum += Arrays
-              .stream(board[row])
-              .filter(number -> number > -1)
-              .reduce(0, Integer::sum);
+      rowSum += Arrays.stream(board[row]).filter(number -> number > -1).reduce(0, Integer::sum);
     }
     return rowSum * random;
   }
