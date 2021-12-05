@@ -15,9 +15,17 @@ public class PuzzlesRunner {
         Day3Diagnostic day3 = new Day3Diagnostic();
         System.out.printf("Day 3 Q1: %d, Q2: %d.", day3.calc(), day3.calc2());
 
+        addVSpace();
+
         Day4Bingo day4 = new Day4Bingo(5);
         day4.readData("src/main/resources/day-4-bingo");
         System.out.printf("Day 4 Q1: %d, Q2: %d.", day4.calc()[1], day4.calc2()[1]);
+
+        addVSpace();
+
+        Day5Vents day5 = new Day5Vents(1000, 1000);
+        day5.readData("/day-5-vents");
+        System.out.printf("Day 5 Q1: %d, Q2: %d.", day5.calc(), day5.calc2());
 
         addVSpace();
     }

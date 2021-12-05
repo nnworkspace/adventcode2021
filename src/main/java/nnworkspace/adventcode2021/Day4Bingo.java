@@ -29,8 +29,6 @@ public class Day4Bingo {
     try (BufferedReader br = new BufferedReader(new FileReader(configFile))) {
       readRandomNumbers(br);
       readBoards(br);
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -67,9 +65,7 @@ public class Day4Bingo {
     for (int random : randomInts) {
 
       // mark all boards, do not skip any, otherwise error will occur.
-      for (int i = 0; i < boards.size(); i++) {
-        int[][] board = boards.get(i);
-
+      for (int[][] board : boards) {
         // first, mark the matching number as -1
         markAMatch(random, board);
       }
