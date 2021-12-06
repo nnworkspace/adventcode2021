@@ -28,6 +28,12 @@ public class PuzzlesRunner {
         System.out.printf("Day 5 Q1: %d, Q2: %d.", day5.calc(), day5.calc2());
 
         addVSpace();
+
+        Day6Lanternfish day6 = new Day6Lanternfish(7, 9);
+        day6.readData("src/main/resources/day-6-lanternfish");
+        System.out.printf("Day 6 Q1: %d, Q2: %d.", day6.calc(80), day6.calc2(80));
+
+        addVSpace();
     }
 
     private static void addVSpace() {
