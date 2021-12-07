@@ -34,6 +34,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 6 Q1: %d, Q2: %d.", day6.calc(80), day6.calc2(256));
 
         addVSpace();
+
+        Day7Crabs day7 = new Day7Crabs("src/main/resources/day-7-crabs");
+        System.out.printf("Day 7 Q1: %d, Q2: %d.", day7.calc(), day7.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
