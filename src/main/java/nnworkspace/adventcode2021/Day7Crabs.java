@@ -2,10 +2,8 @@ package nnworkspace.adventcode2021;
 
 import com.google.common.collect.ImmutableList;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.logging.Logger;
 
 /** https://adventofcode.com/2021/day/7 */
@@ -49,7 +47,7 @@ public class Day7Crabs {
     for (int i = 0; i < hPosHist.length; i++) {
       int fuel = 0;
       for (int j = 0; j < hPosHist.length; j++) {
-        fuel +=  hPosHist[j] * calcFuelFactor2(i, j);
+        fuel += hPosHist[j] * calcFuelFactor2(i, j);
       }
       if (fuel < minFuel) {
         minFuel = fuel;
@@ -76,23 +74,23 @@ public class Day7Crabs {
     return (1 + dist) * dist / 2;
   }
 
-//  private List<Integer> findModes(int[] hPosHist) {
-//    int maxFrequency = 0;
-//    List<Integer> modes = new ArrayList<>();
-//    for (int i = 0; i < hPosHist.length; i++) {
-//      if (hPosHist[i] > maxFrequency) {
-//        maxFrequency = hPosHist[i];
-//        modes.clear();
-//        modes.add(i);
-//        continue;
-//      }
-//
-//      if (hPosHist[i] == maxFrequency) {
-//        modes.add(i);
-//      }
-//    }
-//
-//    return modes;
-//  }
+  //  private List<Integer> findModes(int[] hPosHist) {
+  //    int maxFrequency = 0;
+  //    List<Integer> modes = new ArrayList<>();
+  //    for (int i = 0; i < hPosHist.length; i++) {
+  //      if (hPosHist[i] > maxFrequency) {
+  //        maxFrequency = hPosHist[i];
+  //        modes.clear();
+  //        modes.add(i);
+  //        continue;
+  //      }
+  //
+  //      if (hPosHist[i] == maxFrequency) {
+  //        modes.add(i);
+  //      }
+  //    }
+  //
+  //    return modes;
+  //  }
 
 }

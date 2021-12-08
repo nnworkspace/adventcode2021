@@ -39,6 +39,12 @@ public class PuzzlesRunner {
         System.out.printf("Day 7 Q1: %d, Q2: %d.", day7.calc(), day7.calc2());
 
         addVSpace();
+
+        Day8Segments day8 = new Day8Segments();
+        day8.readData("/day-8-segments");
+        System.out.printf("Day 8 Q1: %d, Q2: %d.", day8.calc(), day8.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
