@@ -22,6 +22,6 @@ class Day9BasinTest {
 
     @Test
     void calc2() {
-        assertEquals(61229, day9.calc2());
+        assertEquals(1134, day9.calc2());
     }
 }
