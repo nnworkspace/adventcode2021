@@ -48,6 +48,34 @@ public class Day8Segments {
     Arrays.stream(uniqueFrequenciesSegsArray).forEach(uniqueFrequenciesSegs::add);
   }
 
+  public List<List<String>> getInputsList() {
+    return inputsList;
+  }
+
+  public List<List<String>> getOutputsList() {
+    return outputsList;
+  }
+
+  public void readData(String fileName) {
+    Stream<String> stream = null;
+
+    try {
+      stream =
+              Files.lines(
+                      Paths.get(Objects.requireNonNull(this.getClass().getResource(fileName)).toURI()));
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    assert stream != null;
+
+    stream.forEach(
+            line -> {
+              String[] ioPair = line.split("\\|");
+              this.inputsList.add(Arrays.stream(ioPair[0].trim().split("\\s+")).toList());
+              this.outputsList.add(Arrays.stream(ioPair[1].trim().split("\\s+")).toList());
+            });
+  }
+
   public int calc() {
     return outputsList.stream()
         .map(
@@ -242,33 +270,5 @@ public class Day8Segments {
       }
     }
     return segG;
-  }
-
-  public void readData(String fileName) {
-    Stream<String> stream = null;
-
-    try {
-      stream =
-          Files.lines(
-              Paths.get(Objects.requireNonNull(this.getClass().getResource(fileName)).toURI()));
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
-    assert stream != null;
-
-    stream.forEach(
-        line -> {
-          String[] ioPair = line.split("\\|");
-          this.inputsList.add(Arrays.stream(ioPair[0].trim().split("\\s+")).toList());
-          this.outputsList.add(Arrays.stream(ioPair[1].trim().split("\\s+")).toList());
-        });
-  }
-
-  public List<List<String>> getInputsList() {
-    return inputsList;
-  }
-
-  public List<List<String>> getOutputsList() {
-    return outputsList;
   }
 }

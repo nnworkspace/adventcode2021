@@ -45,6 +45,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 8 Q1: %d, Q2: %d.", day8.calc(), day8.calc2());
 
         addVSpace();
+
+        Day9Basin day9 = new Day9Basin("src/main/resources/day-9-basin");
+        System.out.printf("Day 9 Q1: %d, Q2: %d.", day9.calc(), day9.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
