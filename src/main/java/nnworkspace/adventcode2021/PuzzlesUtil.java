@@ -6,9 +6,29 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class PuzzlesUtil {
+
+  public static ImmutableList<String> getAllLines(String fileName) {
+    List<String> lines = null;
+    try {
+      lines =
+          Files.lines(
+                  Paths.get(
+                      Objects.requireNonNull(PuzzlesUtil.class.getResource(fileName)).toURI()))
+              .map(String::trim)
+              .toList();
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    return ImmutableList.copyOf(lines);
+  }
 
   public static ImmutableList<Integer> parseIntsInFirstLine(String configFile) {
     ImmutableList<Integer> integers = null;

@@ -3,6 +3,7 @@ package nnworkspace.adventcode2021;
 import java.util.*;
 import java.util.logging.Logger;
 
+/** https://adventofcode.com/2021/day/9 */
 public class Day9Basin {
   private static final Logger logger = Logger.getLogger(Day9Basin.class.getName());
 

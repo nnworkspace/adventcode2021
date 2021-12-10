@@ -38,4 +38,13 @@ class PuzzlesUtilTest {
   void getLineCounts() {
     assertEquals(5, PuzzlesUtil.getLineCounts("src/test/resources/day-9-basin-test", true));
   }
+
+  @Test
+  void getAllLines() {
+    ImmutableList<String> day10InputList = PuzzlesUtil.getAllLines("/day-10-syntax-test");
+    assertEquals(10, day10InputList.size());
+    assertEquals('[', day10InputList.get(0).charAt(0));
+    assertEquals(']', day10InputList.get(9).charAt(23));
+
+  }
 }

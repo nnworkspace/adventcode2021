@@ -50,6 +50,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 9 Q1: %d, Q2: %d.", day9.calc(), day9.calc2());
 
         addVSpace();
+
+        Day10Syntax day10 = new Day10Syntax("/day-10-syntax");
+        System.out.printf("Day 10 Q1: %d, Q2: %d.", day10.calc(), day10.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
