@@ -2,10 +2,16 @@ package nnworkspace.adventcode2021;
 
 import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-/** https://adventofcode.com/2021/day/10 */
+/**
+ *  This solution works, but it's better to be solved with a Stack.....
+ *
+ *  https://adventofcode.com/2021/day/10
+ * */
 public class Day10Syntax {
   private static final Logger logger = Logger.getLogger(Day10Syntax.class.getName());
 
@@ -59,19 +65,21 @@ public class Day10Syntax {
     return errorSum;
   }
 
-  public int calc2() {
+  public long calc2() {
 
-    // index 0 is for ), 1 is for ], 2 is for }, 3 is for >
-    int[] scoreMap = {1, 2, 3, 4};
-
-    int totalScore = 0;
+    List<Long> scores = new ArrayList<>();
 
     for (String line : lines) {
       // find first closing bracket
       StringBuilder sb = new StringBuilder(line);
-      for (int i = 0; i < sb.length(); i++) {
+      for (int i = 0; i < sb.length(); ++i) {
         char right = sb.charAt(i);
         int idxInCloses = closes.indexOf(right);
+
+        if (idxInCloses < 0 && i == sb.length() - 1) {
+          // all chars in the buffer are opening chars, calc the score
+          scores.add(calcScore(sb));
+        }
 
         if (idxInCloses >= 0) {
 
@@ -87,12 +95,37 @@ public class Day10Syntax {
             sb.deleteCharAt(i);
             sb.deleteCharAt(i - 1);
             i = i - 2;
+
+            if (i == sb.length() - 1) {
+              // the deleted pair was at the end of the string, calc the score
+              scores.add(calcScore(sb));
+            }
           }
         }
       }
     }
 
+    Collections.sort(scores);
+    int idxMiddle = scores.size() / 2;
 
-    return totalScore;
+    return scores.get(idxMiddle);
+  }
+
+  public long calcScore(StringBuilder sb) {
+    // index 0 is for ), 1 is for ], 2 is for }, 3 is for >
+    int[] scoreMap = {1, 2, 3, 4};
+
+    long score = 0;
+    for (int j = sb.length() - 1; j >= 0; j--) {
+      char openC = sb.charAt(j);
+      int charIdx = opens.indexOf(openC);
+      score = score * 5 + scoreMap[charIdx];
+    }
+
+    if (score < 0) {
+      logger.info(sb.toString());
+    }
+
+    return score;
   }
 }

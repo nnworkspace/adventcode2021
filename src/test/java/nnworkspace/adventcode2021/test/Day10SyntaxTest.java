@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Day10SyntaxTest {
 
@@ -25,5 +26,12 @@ class Day10SyntaxTest {
 
     @Test
     void calc2() {
+        assertEquals(288957, day10.calc2());
     }
+
+  @Test
+  void calcScore() {
+        StringBuilder sb = new StringBuilder("(((([[(((([[[[");
+        assertTrue(day10.calcScore(sb) > 0);
+  }
 }
