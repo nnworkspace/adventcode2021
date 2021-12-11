@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  *  This solution works, but it's better to be solved with a Stack.....
  *
  *  https://adventofcode.com/2021/day/10
- * */
+ */
 public class Day10Syntax {
   private static final Logger logger = Logger.getLogger(Day10Syntax.class.getName());
 

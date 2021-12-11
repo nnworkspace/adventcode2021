@@ -101,4 +101,35 @@ public class PuzzlesUtil {
       System.out.println();
     }
   }
+
+  public static int[][] cloneMatrixInt(int[][] matrix) {
+    int[][] nm = new int[matrix.length][matrix[0].length];
+    for (int i = 0; i < nm.length; i++){
+      nm[i] = Arrays.copyOf(matrix[i], matrix[i].length);
+    }
+
+    return nm;
+  }
+
+  public static int[][] initMatrixTo(int matrixWidth, int matrixHeight, int initValue) {
+    int[][] nm = new int[matrixHeight][matrixWidth];
+    for (int row = 0; row < matrixHeight; row++){
+      for (int col = 0; col < matrixWidth; col++) {
+        nm[row][col] = initValue;
+      }
+    }
+
+    return nm;
+  }
+
+  public static boolean[][] initMatrixTo(int matrixWidth, int matrixHeight, boolean initValue) {
+    boolean[][] nm = new boolean[matrixHeight][matrixWidth];
+    for (int row = 0; row < matrixHeight; row++){
+      for (int col = 0; col < matrixWidth; col++) {
+        nm[row][col] = initValue;
+      }
+    }
+
+    return nm;
+  }
 }

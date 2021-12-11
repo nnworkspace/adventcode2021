@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import nnworkspace.adventcode2021.PuzzlesUtil;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PuzzlesUtilTest {
 
@@ -46,5 +49,14 @@ class PuzzlesUtilTest {
     assertEquals('[', day10InputList.get(0).charAt(0));
     assertEquals(']', day10InputList.get(9).charAt(23));
 
+  }
+
+  @Test
+  void cloneMatrixInt() {
+    int[][] matrix = PuzzlesUtil.parseMatrix("src/test/resources/day-11-octopus-test", true);
+    int[][] cloned = PuzzlesUtil.cloneMatrixInt(matrix);
+
+    //assertEquals(matrix, cloned);
+    assertTrue(Arrays.deepEquals(matrix, cloned));
   }
 }

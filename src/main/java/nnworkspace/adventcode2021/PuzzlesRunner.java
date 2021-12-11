@@ -55,6 +55,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 10 Q1: %d, Q2: %d.", day10.calc(), day10.calc2());
 
         addVSpace();
+
+        Day11Octopus day11 = new Day11Octopus("src/main/resources/day-11-octopus");
+        System.out.printf("Day 11 Q1: %d, Q2: %d.", day11.calc(100), day11.calc2(100));
+
+        addVSpace();
     }
 
     private static void addVSpace() {
