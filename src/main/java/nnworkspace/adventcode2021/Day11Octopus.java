@@ -28,13 +28,7 @@ public class Day11Octopus {
       matrix = runOneStep(matrix);
 
       // count zeros
-      for (int row = 0; row < matrixHeight; row++) {
-        for (int col = 0; col < matrixWidth; col++) {
-          if (matrix[row][col] == 0) {
-            ++flashSum;
-          }
-        }
-      }
+      flashSum += sumFlashesInOneStep(matrix);
     }
 
     return flashSum;
@@ -64,6 +58,10 @@ public class Day11Octopus {
     boolean[][] alreadyFlashed = PuzzlesUtil.initMatrixTo(matrixWidth, matrixHeight, false);
 
     int iters = 0;
+
+    // State of the matrix will change when the flashing rules propagate.
+    // When the state of the matrix stays still, all rules are propagated to its furthest possibility
+    // stop and return the state of the matrix as the result of this step
     while (iters == 0 || !Arrays.deepEquals(prevMatrix, currMatrix)) {
 
       for (int row = 0; row < matrixHeight; row++) {
@@ -72,23 +70,9 @@ public class Day11Octopus {
 
           prevMatrix[row][col] = eLevel;
 
-          if (eLevel == 0 && alreadyFlashed[row][col]) {
-            // do nothing
-          } else {
-            if (iters == 0) {
-              ++eLevel;
-            }
-          }
+          eLevel = increaseByOneOrDoNothing(alreadyFlashed, iters, row, col, eLevel);
 
-          if (eLevel > 9 && !alreadyFlashed[row][col]) {
-            // reset self to 0
-            eLevel = 0;
-
-            // increase neighbouring cells
-            increaseNeighbours(currMatrix, row, col, alreadyFlashed);
-
-            alreadyFlashed[row][col] = true;
-          }
+          eLevel = applyFlashRules(currMatrix, alreadyFlashed, row, col, eLevel);
 
           currMatrix[row][col] = eLevel;
         }
@@ -98,6 +82,32 @@ public class Day11Octopus {
     }
 
     return currMatrix;
+  }
+
+  private int increaseByOneOrDoNothing(boolean[][] alreadyFlashed, int iters, int row, int col, int eLevel) {
+    if (eLevel == 0 && alreadyFlashed[row][col]) {
+      // do nothing
+    } else {
+      if (iters == 0) {
+        // increment by 1 happens only once per step
+        // that's why the condition iters == 0
+        ++eLevel;
+      }
+    }
+    return eLevel;
+  }
+
+  private int applyFlashRules(int[][] currMatrix, boolean[][] alreadyFlashed, int row, int col, int eLevel) {
+    if (eLevel > 9 && !alreadyFlashed[row][col]) {
+      // reset self to 0
+      eLevel = 0;
+
+      // increase neighbouring cells
+      increaseNeighbours(currMatrix, row, col, alreadyFlashed);
+
+      alreadyFlashed[row][col] = true;
+    }
+    return eLevel;
   }
 
   private void increaseNeighbours(
@@ -120,6 +130,19 @@ public class Day11Octopus {
         && !alreadyFlashed[row][col]) {
       matrix[row][col] += value;
     }
+  }
+
+  private int sumFlashesInOneStep(int[][] matrix) {
+    int flashes = 0;
+
+    for (int row = 0; row < matrixHeight; row++) {
+      for (int col = 0; col < matrixWidth; col++) {
+        if (matrix[row][col] == 0) {
+          ++flashes;
+        }
+      }
+    }
+    return flashes;
   }
 
   private boolean isAllFlash(int[][] matrix) {
