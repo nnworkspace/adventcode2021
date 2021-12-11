@@ -40,8 +40,20 @@ public class Day11Octopus {
     return flashSum;
   }
 
-  public int calc2(int steps) {
-    return 0;
+  public int calc2() {
+    int[][] matrix = PuzzlesUtil.cloneMatrixInt(oMatrix);
+
+    int steps = 0;
+    boolean stop = false;
+    while (!stop) {
+
+      ++steps;
+      matrix = runOneStep(matrix);
+
+      stop = isAllFlash(matrix);
+    }
+
+    return steps;
   }
 
   public int[][] runOneStep(int[][] matrix) {
@@ -52,7 +64,7 @@ public class Day11Octopus {
     boolean[][] alreadyFlashed = PuzzlesUtil.initMatrixTo(matrixWidth, matrixHeight, false);
 
     int iters = 0;
-    while ( iters == 0 || !Arrays.deepEquals(prevMatrix, currMatrix)) {
+    while (iters == 0 || !Arrays.deepEquals(prevMatrix, currMatrix)) {
 
       for (int row = 0; row < matrixHeight; row++) {
         for (int col = 0; col < matrixWidth; col++) {
@@ -88,7 +100,8 @@ public class Day11Octopus {
     return currMatrix;
   }
 
-  private void increaseNeighbours(int[][] currMatrix, int row, int col, boolean[][] alreadyFlashed) {
+  private void increaseNeighbours(
+      int[][] currMatrix, int row, int col, boolean[][] alreadyFlashed) {
     addToCell(currMatrix, row - 1, col - 1, 1, alreadyFlashed);
     addToCell(currMatrix, row - 1, col, 1, alreadyFlashed);
     addToCell(currMatrix, row - 1, col + 1, 1, alreadyFlashed);
@@ -99,9 +112,25 @@ public class Day11Octopus {
     addToCell(currMatrix, row, col - 1, 1, alreadyFlashed);
   }
 
-  public static void addToCell(int[][] matrix, int row, int col, int value, boolean[][] alreadyFlashed) {
-    if ( row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length && !alreadyFlashed[row][col]) {
+  private void addToCell(int[][] matrix, int row, int col, int value, boolean[][] alreadyFlashed) {
+    if (row >= 0
+        && row < matrix.length
+        && col >= 0
+        && col < matrix[0].length
+        && !alreadyFlashed[row][col]) {
       matrix[row][col] += value;
     }
+  }
+
+  private boolean isAllFlash(int[][] matrix) {
+    for (int row = 0; row < matrixHeight; row++) {
+      for (int col = 0; col < matrixWidth; col++) {
+        if (matrix[row][col] != 0) {
+          return false;
+        }
+      }
+    }
+
+    return true;
   }
 }

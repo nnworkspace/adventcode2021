@@ -31,6 +31,10 @@ class Day11OctopusTest {
 
     @Test
     void calc2() {
+
+        int result = day11.calc2();
+
+        assertEquals(195,result);
     }
 
   @Test
@@ -40,10 +44,10 @@ class Day11OctopusTest {
         int[][] init2 = PuzzlesUtil.parseMatrix("src/test/resources/day-11-octopus-test-2", true);
 
 
-        //int[][] afterSteps1 = day11.runOneStep(init);
+        int[][] afterSteps1 = day11.runOneStep(init);
         int[][] afterSteps2 = day11.runOneStep(init1);
 
-        //assertTrue(Arrays.deepEquals(init1, afterSteps1));
+        assertTrue(Arrays.deepEquals(init1, afterSteps1));
         assertTrue(Arrays.deepEquals(init2, afterSteps2));
 
   }
