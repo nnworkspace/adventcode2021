@@ -60,6 +60,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 11 Q1: %d, Q2: %d.", day11.calc(100), day11.calc2());
 
         addVSpace();
+
+        Day12Pathing day12 = new Day12Pathing("/day-12-pathing");
+        System.out.printf("Day 12 Q1: %d, Q2: %d.", day12.calc(), day12.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {

@@ -12,8 +12,25 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class PuzzlesUtil {
+
+  public static Stream<String> readAllLines(String relativePath) {
+    Stream<String> stream = null;
+
+    try {
+      stream =
+          Files.lines(
+              Paths.get(
+                  Objects.requireNonNull(PuzzlesUtil.class.getResource(relativePath)).toURI()));
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+    assert stream != null;
+
+    return stream;
+  }
 
   public static ImmutableList<String> getAllLines(String fileName) {
     List<String> lines = null;
@@ -104,7 +121,7 @@ public class PuzzlesUtil {
 
   public static int[][] cloneMatrixInt(int[][] matrix) {
     int[][] nm = new int[matrix.length][matrix[0].length];
-    for (int i = 0; i < nm.length; i++){
+    for (int i = 0; i < nm.length; i++) {
       nm[i] = Arrays.copyOf(matrix[i], matrix[i].length);
     }
 
@@ -113,7 +130,7 @@ public class PuzzlesUtil {
 
   public static int[][] initMatrixTo(int matrixWidth, int matrixHeight, int initValue) {
     int[][] nm = new int[matrixHeight][matrixWidth];
-    for (int row = 0; row < matrixHeight; row++){
+    for (int row = 0; row < matrixHeight; row++) {
       for (int col = 0; col < matrixWidth; col++) {
         nm[row][col] = initValue;
       }
@@ -124,7 +141,7 @@ public class PuzzlesUtil {
 
   public static boolean[][] initMatrixTo(int matrixWidth, int matrixHeight, boolean initValue) {
     boolean[][] nm = new boolean[matrixHeight][matrixWidth];
-    for (int row = 0; row < matrixHeight; row++){
+    for (int row = 0; row < matrixHeight; row++) {
       for (int col = 0; col < matrixWidth; col++) {
         nm[row][col] = initValue;
       }
