@@ -70,6 +70,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 13 Q1: %d, Q2: %d.", day13.calc(1), day13.calc2());
 
         addVSpace();
+
+        Day14Polymerization day14 = new Day14Polymerization("src/main/resources/day-14-polymerization");
+        System.out.printf("Day 14 Q1: %d, Q2: %d.", day14.calc(10), day13.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
