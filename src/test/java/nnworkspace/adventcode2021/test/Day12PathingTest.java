@@ -1,15 +1,11 @@
-package nnworkspace.adventcode2021;
+package nnworkspace.adventcode2021.test;
 
-import org.junit.jupiter.api.BeforeEach;
+import nnworkspace.adventcode2021.Day12Pathing;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day12PathingTest {
-
-    @BeforeEach
-    void setUp() {
-    }
 
     @Test
     void calc() {

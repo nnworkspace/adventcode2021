@@ -65,6 +65,11 @@ public class PuzzlesRunner {
         System.out.printf("Day 12 Q1: %d, Q2: %d.", day12.calc(), day12.calc2());
 
         addVSpace();
+
+        Day13Origami day13 = new Day13Origami("src/main/resources/day-13-origami");
+        System.out.printf("Day 13 Q1: %d, Q2: %d.", day13.calc(1), day13.calc2());
+
+        addVSpace();
     }
 
     private static void addVSpace() {
